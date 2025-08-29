@@ -6,8 +6,15 @@ import {authGuard} from './core/guards/auth.guard';
 import {redirectIfLoggedInGuard} from './core/guards/redirect-if-logged-in-guard';
 
 export const routes: Routes = [
-  { path: 'admin/login', component: AdminLogin },
-  { path: 'employee/login', component: EmployeeLogin },
+  {    path: 'admin/login',
+    component: AdminLogin,
+    canActivate: [redirectIfLoggedInGuard]
+  },
+  {
+    path: 'employee/login',
+    component: EmployeeLogin,
+    canActivate: [redirectIfLoggedInGuard]
+  },
   {
     path: 'admin',
     canActivate: [authGuard],
@@ -21,7 +28,6 @@ export const routes: Routes = [
   {
     path: '',
     component: PublicLayout,
-    canActivate: [redirectIfLoggedInGuard],
     children: [
       {
         path: '',

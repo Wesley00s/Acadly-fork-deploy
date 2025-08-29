@@ -5,11 +5,17 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import type { Request as ExpressRequest } from 'express';
+
 import { join } from 'node:path';
+
+import { requestContext } from './app/request-context.service';
+import cookieParser from 'cookie-parser';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+app.use(cookieParser());
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -39,12 +45,14 @@ app.use(
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
-  angularApp
-    .handle(req)
-    .then((response) =>
-      response ? writeResponseToNodeResponse(response, res) : next(),
-    )
-    .catch(next);
+  requestContext.run(req as ExpressRequest, () => {
+    angularApp
+      .handle(req)
+      .then((response) =>
+        response ? writeResponseToNodeResponse(response, res) : next(),
+      )
+      .catch(next);
+  });
 });
 
 /**

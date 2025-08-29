@@ -37,7 +37,10 @@
             },
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "allowedCommonJsDependencies": [
+              "cookie-parser"
+            ]
           },
           "configurations": {
             "production": {

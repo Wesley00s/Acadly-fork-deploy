@@ -2,18 +2,25 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import {provideHttpClient, withFetch} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import {CookieService} from 'ngx-cookie-service';
+import {credentialsInterceptor} from './core/interceptors/credentials.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
 
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withInterceptors([
+        credentialsInterceptor,
+      ])
+    ),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideAnimations(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    CookieService
   ]
 };
