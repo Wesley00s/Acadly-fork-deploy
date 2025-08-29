@@ -33,7 +33,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/about/about').then(m => m.About)
       },
       {
-        path: 'policy',
+        path: 'privacy-policy',
         loadComponent: () => import('./pages/privacy-policy/privacy-policy').then(m => m.PrivacyPolicy)
       },
       {
