@@ -1,4 +1,4 @@
-/
+/app-home
 /about-us
 /terms-of-use
 /privacy-policy
