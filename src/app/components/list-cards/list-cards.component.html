@@ -8,6 +8,9 @@
 
   @else if (state.activities && state.activities.data.length > 0) {
     <div class="list">
+      <div class="list__text">
+        <h3>Atividades do Evento</h3>
+      </div>
       <div class="carousel__container">
         <swiper-container #swiperContainer init="false">
           @for (activity of state.activities.data; track activity.id) {
