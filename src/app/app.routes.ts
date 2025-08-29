@@ -23,9 +23,9 @@ export const routes: Routes = [
     component: PublicLayout,
     canActivate: [redirectIfLoggedInGuard],
     children: [
-      { path: '', redirectTo: 'app-home', pathMatch: 'full' },
+      { path: '', redirectTo: '/', pathMatch: 'full' },
       {
-        path: 'app-home',
+        path: '/',
         loadComponent: () =>
           import('./pages/home/home.page').then((m) => m.HomePage)
       },
