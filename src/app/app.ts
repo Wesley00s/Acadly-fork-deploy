@@ -1,7 +1,8 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component, signal, OnInit, PLATFORM_ID, inject} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import {ToastContainer} from './components/toast-container/toast-container';
 import {VlibrasWidget} from './components/vlibras-widget/vlibras-widget';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,14 +11,20 @@ import {VlibrasWidget} from './components/vlibras-widget/vlibras-widget';
   styleUrls: ['./app.scss']
 })
 export class App implements OnInit {
-  protected readonly title = signal('fintench-frontend');
+  protected readonly title = signal('acadly');
 
-ngOnInit(): void {
-  const script = document.createElement('script');
-    script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-    script.onload = () => {
-      new window.VLibras.Widget('https://vlibras.gov.br/app');
-    };
-    document.body.appendChild(script);
-}
+  private platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    if (isPlatformBrowser(this.platformId)) {
+
+      const script = document.createElement('script');
+      script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+      script.onload = () => {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      };
+      document.body.appendChild(script);
+    }
+  }
 }
