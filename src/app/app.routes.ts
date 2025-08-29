@@ -23,9 +23,8 @@ export const routes: Routes = [
     component: PublicLayout,
     canActivate: [redirectIfLoggedInGuard],
     children: [
-      { path: '', redirectTo: '/', pathMatch: 'full' },
       {
-        path: '/',
+        path: '',
         loadComponent: () =>
           import('./pages/home/home.page').then((m) => m.HomePage)
       },
@@ -40,7 +39,8 @@ export const routes: Routes = [
       {
         path: 'terms-of-use',
         loadComponent: () => import('./pages/terms-of-use/terms-of-use').then(m => m.TermsOfUse)
-      }
+      },
+      { path: '**', redirectTo: '' }
     ]
   },
 ]
