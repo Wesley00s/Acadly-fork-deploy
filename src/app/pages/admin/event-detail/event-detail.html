@@ -48,11 +48,20 @@
     <hr>
 
     <section class="participants-section">
-      <h2>Participantes Inscritos ({{ totalElements }})</h2>
-      @if (isLoadingParticipants) {
-        <p>Carregando participantes...</p>
-      } @else {
-        @if (participants.length > 0) {
+      @if (participantsPage$ | async; as page) {
+        <h2>Participantes Inscritos ({{ page.pagination.totalElements }})</h2>
+
+        <div class="search-container">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Pesquisar pelo nome do paticipante..."
+            (input)="onSearchQueryChanged($event)"
+          />
+        </div>
+
+        @if (page.data.length > 0) {
           <div class="participants-table-container">
             <table>
               <thead>
@@ -60,30 +69,46 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Tipo</th>
+                <th>Status</th>
               </tr>
               </thead>
               <tbody>
-                @for (participant of participants; track participant.id) {
+                @for (enrollment of page.data; track enrollment.participant.id) {
                   <tr>
-                    <td data-label="Nome">{{ participant.name }}</td>
-                    <td data-label="Email">{{ participant.email }}</td>
-                    <td data-label="Tipo">{{ participant.participantType }}</td>
+                    <td data-label="Nome">{{ enrollment.participant.name }}</td>
+                    <td data-label="Email">{{ enrollment.participant.email }}</td>
+                    <td data-label="Tipo">
+                      @switch (enrollment.participant.participantType) {
+                        @case ('DISCENTE') { <span>Discente</span> }
+                        @case ('DOCENTE') { <span>Docente</span> }
+                        @case ('OUTRO') { <span>Outro</span> }
+                      }
+                    </td>
+                    <td data-label="Status">
+                      @switch (enrollment.wasPresent) {
+                        @case ('TRUE') { <span>Presente</span> }
+                        @case ('FALSE') { <span>Faltou</span> }
+                        @case ('PENDING') { <span>Pendente</span> }
+                      }
+                    </td>
                   </tr>
                 }
               </tbody>
             </table>
           </div>
-          @if (totalPages > 1) {
+          @if (page.pagination.totalPages > 1) {
             <div class="pagination-controls">
-              <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0" class="pagination-button">Anterior</button>
-              <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
-              <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage + 1 >= totalPages" class="pagination-button">Próxima</button>
+              <button (click)="onPageChange(page.pagination.page - 1)" [disabled]="page.pagination.page === 0" class="pagination-button">Anterior</button>
+              <span>Página {{ page.pagination.page + 1 }} de {{ page.pagination.totalPages }}</span>
+              <button (click)="onPageChange(page.pagination.page + 1)" [disabled]="page.pagination.page + 1 >= page.pagination.totalPages" class="pagination-button">Próxima</button>
             </div>
           }
         } @else {
-          <p class="no-participants-message">Nenhum participante inscrito neste evento ainda.</p>
+          <p class="no-participants-message">Nenhum participante encontrado.</p>
         }
-      }
+      } @else {
+        <h2>Participantes Inscritos</h2>
+        }
     </section>
   } @else {
     <p>Carregando detalhes do evento...</p>
