@@ -352,6 +352,34 @@ table {
   }
 }
 
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  min-height: 300px;
+  text-align: center;
+  color: #6c757d;
+  font-family: var(--font-family-primary);
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #e9ecef;
+    border-top: 5px solid var(--secondary-color, #3498db);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
 
 @media (max-width: 768px) {
   .participants-table-container {
