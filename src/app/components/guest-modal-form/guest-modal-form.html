@@ -1,0 +1,59 @@
+<div class="modal-overlay"
+     (click)="onClose()"
+     (keydown.enter)="onClose()"
+     role="button"
+     tabindex="0">
+  <div class="modal-content"
+       (click)="$event.stopPropagation()"
+       (keydown.enter)="$event.stopPropagation()"
+       role="dialog"
+       tabindex="-1">
+    <header class="modal-header">
+      <h2>{{ isEditMode ? 'Editar Convidado' : 'Adicionar Novo Convidado' }}</h2>
+      <button class="close-button" (click)="onClose()" aria-label="Fechar modal">&times;</button>
+    </header>
+
+    <form class="modal-body" [formGroup]="guestForm" (ngSubmit)="onSave()">
+      <div class="form-group">
+        <label for="name">Nome do Convidado</label>
+        <input id="name" type="text" formControlName="name" placeholder="Ex: Maria da Silva">
+      </div>
+
+      <div class="form-group">
+        <label for="occupation">Ocupação / Cargo</label>
+        <input id="occupation" type="text" formControlName="occupation" placeholder="Ex: Desenvolvedora de Software">
+      </div>
+
+      <div class="form-group">
+        <label for="period">Período de participação</label>
+        <select id="period" formControlName="period">
+          <option value="" disabled>Selecione um período</option>
+          @for (option of periodOptions; track option) {
+            <option [value]="option">
+              @switch (option) {
+                @case (Period.MORNING) { Manhã }
+                @case (Period.AFTERNOON) { Tarde }
+                @case (Period.EVENING) { Noite }
+              }
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="profilePicture">Foto do Perfil</label>
+        <input id="profilePicture" required type="file" accept="image/png, image/jpeg, image/webp" (change)="onFileChange($event)">
+        @if (imagePreview) {
+          <div class="image-preview-container">
+            <img [src]="imagePreview" alt="Pré-visualização da imagem" class="image-preview">
+          </div>
+        }
+      </div>
+
+      <footer class="modal-footer">
+        <button type="button" class="button-secondary" (click)="onClose()">Cancelar</button>
+        <button type="submit" class="button-primary">{{ isEditMode ? 'Salvar Alterações' : 'Criar Convidado' }}</button>
+      </footer>
+    </form>
+  </div>
+</div>
