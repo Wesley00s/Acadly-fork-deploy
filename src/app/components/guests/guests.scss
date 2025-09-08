@@ -1,0 +1,144 @@
+.section-guests {
+  padding: 40px 20px;
+  background-color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 20px;
+
+  .titulo-secao {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+  }
+}
+
+.container-cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px; 
+  flex-wrap: wrap;
+
+  .card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    padding: 20px; 
+    width: 100%;
+    max-width: 550px; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    .card-header {
+      background-color: #fff;
+      border-bottom: 2px solid var(--color-aux);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+
+      .titulo-card {
+        font-size: 1.5rem; 
+        font-weight: 600;
+        color: var(--tertiary-color);
+        margin: 0;
+        text-align: center;
+      }
+    }
+
+    .card-body {
+      flex: 1;
+      display: grid;
+      gap: 20px;
+
+      &.vespertino {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      &.noturno {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .perfil {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+
+        .foto-perfil {
+          width: 100px; 
+          height: 100px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid var(--secondary-color);
+        }
+
+        .info-perfil {
+          .nome-convidado {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 8px 0 4px;
+            color: var(--tertiary-color);
+          }
+
+          .profissao-convidado {
+            color: rgb(100, 100, 100);
+            font-size: 1rem; 
+            font-weight: 500;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .section-guests {
+    .titulo-secao {
+      font-size: 1.8rem;
+    }
+  }
+
+  .container-cards {
+    gap: 15px;
+
+    .card {
+      padding: 12px; 
+
+      .card-header {
+        .titulo-card {
+          font-size: 1.2rem; 
+        }
+      }
+
+      .card-body {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 12px; 
+        padding-bottom: 8px;
+
+        .perfil {
+          min-width: 130px; 
+          flex: 0 0 auto;
+
+          .foto-perfil {
+            width: 80px;
+            height: 80px;
+          }
+
+          .info-perfil {
+            .nome-convidado {
+              font-size: 0.95rem; 
+            }
+
+            .profissao-convidado {
+              font-size: 0.8rem; 
+            }
+          }
+        }
+      }
+    }
+  }
+}

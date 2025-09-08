@@ -5,8 +5,8 @@ import { Pagination, Navigation, Scrollbar, Keyboard } from 'swiper/modules';
 
 interface Student {
   name: string;
-  githubUrl: string;
-  linkedinUrl: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
   avatarUrl?: string;
 }
 
@@ -23,9 +23,9 @@ export class AboutUs implements AfterViewInit {
     { name: 'Kaiane', githubUrl: 'https://github.com/KaianeSousa', linkedinUrl: 'https://linkedin.com/in/kaianem/', avatarUrl: '/assets/avatars/kaiane.png' },
     { name: 'Letícia', githubUrl: 'https://github.com/Leititcia', linkedinUrl: 'https://linkedin.com/in/leititciavale', avatarUrl: '/assets/avatars/leticia.png' },
     { name: 'Lívia Mota', githubUrl: 'https://github.com/Motaplivia', linkedinUrl: 'https://linkedin.com/in/motaplivia', avatarUrl: '/assets/avatars/livia-mota.png' },
-    { name: 'Lívia Noronha', githubUrl: '#', linkedinUrl: 'https://linkedin.com/in/livia-p-072244197', avatarUrl: '/assets/avatars/livia-noronha.png' },
-    { name: 'Lucas', githubUrl: '#', linkedinUrl: 'https://linkedin.com/in/lucasmew', avatarUrl: '/assets/avatars/lucas.jpg' },
-    { name: 'Micaele', githubUrl: '#', linkedinUrl: '#', avatarUrl: '/assets/avatars/micaele.png' },
+    { name: 'Lívia Noronha', linkedinUrl: 'https://linkedin.com/in/livia-p-072244197', avatarUrl: '/assets/avatars/livia-noronha.png' },
+    { name: 'Lucas', linkedinUrl: 'https://linkedin.com/in/lucasmew', avatarUrl: '/assets/avatars/lucas.jpg' },
+    { name: 'Micaele', githubUrl: 'https://github.com/Micaelerodrigue', linkedinUrl: 'https://linkedin.com/in/micaele-rodrigues-b1042b270/', avatarUrl: '/assets/avatars/micaele.png' },
     { name: 'Wesley', githubUrl: 'https://github.com/Wesley00s', linkedinUrl: 'https://linkedin.com/in/wesley-rodrigues-de-sousa', avatarUrl: '/assets/avatars/wesley.png' },
   ];
 

@@ -1,0 +1,35 @@
+<section class="section-guests">
+  <h2 class="titulo-secao">Convidados</h2>
+
+  <div class="container-cards">
+    <div class="card">
+  <div class="card-header">
+    <h3 class="titulo-card">Mesa redonda | Vespertino</h3>
+  </div>
+  <div class="card-body vespertino">
+    <div *ngFor="let convidado of guestsVespertino" class="perfil">
+          <img [src]="convidado.foto" [alt]="'Foto de ' + convidado.nome" class="foto-perfil">
+          <div class="info-perfil">
+            <p class="nome-convidado">{{ convidado.nome }}</p>
+            <p class="profissao-convidado">{{ convidado.profissao }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="titulo-card">Mesa redonda | Noturno</h3>
+  </div>
+  <div class="card-body noturno">
+    <div *ngFor="let convidado of guestsNoturno" class="perfil">
+          <img [src]="convidado.foto" [alt]="'Foto de ' + convidado.nome" class="foto-perfil">
+          <div class="info-perfil">
+            <p class="nome-convidado">{{ convidado.nome }}</p>
+            <p class="profissao-convidado">{{ convidado.profissao }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
