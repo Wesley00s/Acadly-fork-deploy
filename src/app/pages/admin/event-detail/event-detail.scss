@@ -53,7 +53,8 @@
 }
 
 .event-info,
-.activities-management {
+.activities-management,
+.guests-management {
   margin-bottom: 2rem;
 
   h2 {
@@ -107,7 +108,8 @@ p:empty + p {
 }
 
 
-.activities-header {
+.activities-header,
+.guests-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -120,7 +122,8 @@ p:empty + p {
   }
 }
 
-.add-activity-button {
+.add-activity-button,
+.add-guest-button {
   background-color: var(--secondary-color);
   display: inline-flex;
   align-items: center;

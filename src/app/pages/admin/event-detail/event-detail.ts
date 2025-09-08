@@ -1,15 +1,16 @@
-import {ChangeDetectorRef, Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, Observable, switchMap} from 'rxjs';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {EventService} from '../../../core/service/event-service';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {Event} from '../../../core/types/Event';
+import {Event as EventEntity} from '../../../core/types/Event';
 import {EventModalForm} from '../../../components/event-modal-form/event-modal-form';
 import {ToastService} from '../../../core/service/toast-service';
 import {ActivityManagement} from '../../../components/activity-management/activity-management';
 import {Enrollment} from '../../../core/types/Enrollment';
 import {EnrollmentService} from '../../../core/service/enrollment-service';
 import {Pagination} from '../../../core/types/Pagination';
+import {GuestManagement} from '../../../components/guest-management/guest-management';
 
 @Component({
   selector: 'app-event-detail',
@@ -18,7 +19,8 @@ import {Pagination} from '../../../core/types/Pagination';
     RouterLink,
     EventModalForm,
     ActivityManagement,
-    DatePipe
+    DatePipe,
+    GuestManagement
   ],
   templateUrl: './event-detail.html',
   styleUrl: './event-detail.scss'
@@ -26,13 +28,12 @@ import {Pagination} from '../../../core/types/Pagination';
 export class EventDetail implements OnInit {
   private eventService = inject(EventService);
   private enrollmentService = inject(EnrollmentService);
-  private cdr = inject(ChangeDetectorRef);
   private toastService = inject(ToastService);
   private route = inject(ActivatedRoute);
 
-  event$!: Observable<Event>;
+  event$!: Observable<EventEntity>;
   isModalVisible = false;
-  selectedEventForEdit: Event | null = null;
+  selectedEventForEdit: EventEntity | null = null;
   private eventId!: number;
   pageSize = 10;
 
@@ -62,7 +63,7 @@ export class EventDetail implements OnInit {
     this.event$ = this.eventService.getEventById(this.eventId);
   }
 
-  onSearchQueryChanged(event: any): void {
+  onSearchQueryChanged(event: Event): void {
     const query = (event.target as HTMLInputElement).value;
 
     if (this.page$.value !== 0) {
@@ -75,12 +76,12 @@ export class EventDetail implements OnInit {
     this.page$.next(newPage);
   }
 
-  onEditEvent(event: Event): void {
+  onEditEvent(event: EventEntity): void {
     this.selectedEventForEdit = {...event};
     this.isModalVisible = true;
   }
 
-  saveEvent(event: Event): void {
+  saveEvent(event: EventEntity): void {
     this.eventService.saveEvent(event).subscribe({
       next: () => {
         this.toastService.showSuccess('Evento atualizado com sucesso!');

@@ -51,6 +51,19 @@
     </section>
     <hr>
 
+    <section class="guests-management">
+      @if (event.id) {
+        <div class="guests-header">
+          <h2>Gerenciamento de Convidados</h2>
+          <button (click)="guestManager.onAddGuest()" class="add-guest-button">
+            <span>Adicionar Convidado</span>
+          </button>
+        </div>
+        <app-guest-management #guestManager [eventId]="event.id"></app-guest-management>
+      }
+    </section>
+    <hr>
+
     <section class="participants-section">
       @if (participantsPage$ | async; as page) {
         <h2>Participantes Inscritos ({{ page.pagination.totalElements }})</h2>
