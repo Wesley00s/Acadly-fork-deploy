@@ -37,6 +37,7 @@ interface ActivitiesState {
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './list-cards.component.html',
+  standalone: true,
   styleUrls: ['./list-cards.component.scss']
 })
 export class ListCardsComponent implements OnInit, OnDestroy {

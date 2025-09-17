@@ -8,6 +8,7 @@ import {DatePipe} from "@angular/common";
         DatePipe
     ],
   templateUrl: './activity-modal.html',
+  standalone: true,
   styleUrl: './activity-modal.scss'
 })
 export class ActivityModal {
